@@ -12,6 +12,7 @@
     "rules": {
         "no-console": "off",
         "no-underscore-dangle": "off",
+        "linebreak-style": "off",
         "camelcase": ["error", { "allow": ["created_at", "updated_at"] }]
     }
 }
