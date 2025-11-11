@@ -3,7 +3,7 @@ const { nanoid } = require('nanoid');
 const bcrypt = require('bcrypt');
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
-const AuthenticationError = require('./AuthenticationError');
+const AuthenticationError = require('../../exceptions/AuthenticationError');
 
 class UserService {
   constructor() {
@@ -76,6 +76,16 @@ class UserService {
     }
 
     return id;
+  }
+
+  async getUserByUsername(username) {
+    const query = {
+      text: 'SELECT id, username, fullname FROM users WHERE username LIKE $1',
+      values: [`%${username}%`],
+    };
+
+    const result = await this._pool.query(query);
+    return result.rows;
   }
 }
 
